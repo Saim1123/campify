@@ -13,7 +13,9 @@ import {
   Tent,
   Sparkles,
   ChevronRight,
-  CheckCircle
+  CheckCircle,
+  Menu,
+  X
 } from "lucide-react";
 
 type Vec3 = [number, number, number];
@@ -172,6 +174,7 @@ function ServiceIcons() {
 function App() {
   const [activeSection, setActiveSection] = useState("services");
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const services = [
     { icon: Car, title: "On-Demand Van Booking", desc: "Book vans instantly via app/website" },
@@ -275,10 +278,50 @@ function App() {
               ))}
             </div>
             
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-green-500 rounded-full font-semibold hover:opacity-90 transition">
-              Book Now
-            </button>
+            <div className="flex items-center space-x-4">
+              <button className="hidden md:block px-6 py-2 bg-gradient-to-r from-blue-500 to-green-500 rounded-full font-semibold hover:opacity-90 transition">
+                Book Now
+              </button>
+              
+              <button 
+                className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
+          
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-gray-700 py-4"
+            >
+              <div className="flex flex-col space-y-2">
+                {["services", "pricing", "packages", "about"].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      setActiveSection(item);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`px-4 py-3 rounded-lg transition-all text-left ${
+                      activeSection === item
+                        ? "bg-blue-500 text-white"
+                        : "hover:bg-gray-800"
+                    }`}
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </button>
+                ))}
+                <button className="px-4 py-3 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg font-semibold hover:opacity-90 transition">
+                  Book Now
+                </button>
+              </div>
+            </motion.div>
+          )}
         </div>
       </nav>
 
