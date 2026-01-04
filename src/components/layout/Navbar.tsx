@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Menu, X, Tent } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "../ui/Button";
 
 import { motion, AnimatePresence } from "motion/react";
@@ -21,13 +21,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#" className="flex items-center space-x-2 group">
-            <div className="relative">
-              <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Tent className="w-8 h-8 text-blue-400 relative z-10" />
-            </div>
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-emerald-400">
-              Campify
-            </span>
+            <img src="./logo.png" alt="" width={80} />
           </a>
 
           {/* Desktop Nav */}
